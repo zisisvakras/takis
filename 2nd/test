@@ -1,0 +1,130 @@
+#!/bin/bash
+
+mkdir myoutput > /dev/null
+mkdir takimage > /dev/null
+
+make figproc > /dev/null
+make convert > /dev/null
+
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/NIbin.ppm' > takimage/NIbin.ppm
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/NIbin.pgm' > takimage/NIbin.pgm 
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/NIbin.pbm' > takimage/NIbin.pbm
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/MVbin.ppm' > takimage/MVbin.ppm
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/MVbin.pgm' > takimage/MVbin.pgm
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/MVbin.pbm' > takimage/MVbin.pbm
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/ISbin.ppm' > takimage/ISbin.ppm
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/ISbin.pgm' > takimage/ISbin.pgm
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/ISbin.pbm' > takimage/ISbin.pbm
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/colorsasc.ppm' > takimage/colorsasc.ppm
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/colorsasc.pgm' > takimage/colorsasc.pgm
+curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/colorsasc.pbm' > takimage/colorsasc.pbm
+
+echo 'colorsasc fig >'
+echo ''
+./figproc < takimage/colorsasc.ppm > myoutput/colorsasc.pgm
+./figproc < myoutput/colorsasc.pgm > myoutput/colorsasc.pbm
+
+echo 'MVbin fig >'
+echo ''
+./figproc < takimage/MVbin.ppm > myoutput/MVbin.pgm
+./figproc < myoutput/MVbin.pgm > myoutput/MVbin.pbm
+
+echo 'NIbin fig >'
+echo ''
+./figproc < takimage/NIbin.ppm > myoutput/NIbin.pgm
+./figproc < myoutput/NIbin.pgm > myoutput/NIbin.pbm
+
+echo 'ISbin fig >'
+echo ''
+./figproc < takimage/ISbin.ppm > myoutput/ISbin.pgm
+./figproc < myoutput/ISbin.pgm > myoutput/ISbin.pbm
+
+cmp myoutput/colorsasc.pgm takimage/colorsasc.pgm
+cmp myoutput/colorsasc.pbm takimage/colorsasc.pbm
+
+cmp myoutput/MVbin.pgm takimage/MVbin.pgm
+cmp myoutput/MVbin.pbm takimage/MVbin.pbm
+
+cmp myoutput/NIbin.pgm takimage/NIbin.pgm
+cmp myoutput/NIbin.pbm takimage/NIbin.pbm
+
+cmp myoutput/ISbin.pgm takimage/ISbin.pgm
+cmp myoutput/ISbin.pbm takimage/ISbin.pbm
+
+echo 'colorsasc bonus >'
+echo ''
+./convert < takimage/colorsasc.ppm > myoutput/colorsasc6.ppm
+./convert < myoutput/colorsasc.pgm > myoutput/colorsasc5.pgm
+./convert < myoutput/colorsasc.pbm > myoutput/colorsasc4.pbm
+./convert < myoutput/colorsasc6.ppm > myoutput/colorsasc3.ppm
+./convert < myoutput/colorsasc5.pgm > myoutput/colorsasc2.pgm
+./convert < myoutput/colorsasc4.pbm > myoutput/colorsasc1.pbm
+
+echo 'MVbin bonus >'
+echo ''
+./convert < takimage/MVbin.ppm > myoutput/MVbin3.ppm
+./convert < myoutput/MVbin.pgm > myoutput/MVbin2.pgm
+./convert < myoutput/MVbin.pbm > myoutput/MVbin1.pbm
+./convert < myoutput/MVbin3.ppm > myoutput/MVbin6.ppm
+./convert < myoutput/MVbin2.pgm > myoutput/MVbin5.pgm
+./convert < myoutput/MVbin1.pbm > myoutput/MVbin4.pbm
+
+echo 'NIbin bonus >'
+echo ''
+./convert < takimage/NIbin.ppm > myoutput/NIbin3.ppm
+./convert < myoutput/NIbin.pgm > myoutput/NIbin2.pgm
+./convert < myoutput/NIbin.pbm > myoutput/NIbin1.pbm
+./convert < myoutput/NIbin3.ppm > myoutput/NIbin6.ppm
+./convert < myoutput/NIbin2.pgm > myoutput/NIbin5.pgm
+./convert < myoutput/NIbin1.pbm > myoutput/NIbin4.pbm
+
+echo 'ISbin bonus >'
+echo ''
+./convert < takimage/ISbin.ppm > myoutput/ISbin3.ppm
+./convert < myoutput/ISbin.pgm > myoutput/ISbin2.pgm
+./convert < myoutput/ISbin.pbm > myoutput/ISbin1.pbm
+./convert < myoutput/ISbin3.ppm > myoutput/ISbin6.ppm
+./convert < myoutput/ISbin2.pgm > myoutput/ISbin5.pgm
+./convert < myoutput/ISbin1.pbm > myoutput/ISbin4.pbm
+
+cmp myoutput/colorsasc3.ppm takimage/colorsasc.ppm
+cmp myoutput/colorsasc2.pgm takimage/colorsasc.pgm
+cmp myoutput/colorsasc1.pbm takimage/colorsasc.pbm
+
+cmp -i 17:40 myoutput/MVbin6.ppm takimage/MVbin.ppm
+cmp myoutput/MVbin5.pgm takimage/MVbin.pgm
+cmp myoutput/MVbin4.pbm takimage/MVbin.pbm
+
+cmp -i 17:40 myoutput/NIbin6.ppm takimage/NIbin.ppm
+cmp myoutput/NIbin5.pgm takimage/NIbin.pgm
+cmp myoutput/NIbin4.pbm takimage/NIbin.pbm
+
+cmp -i 17:40 myoutput/ISbin6.ppm takimage/ISbin.ppm
+cmp myoutput/ISbin5.pgm takimage/ISbin.pgm
+cmp myoutput/ISbin4.pbm takimage/ISbin.pbm
+
+rm -rf takimage
+rm -rf myoutput
+
+# Error checking
+
+echo '# FIGPROC #'
+echo ''
+for i in {1..17}
+do
+    echo $i' >'
+    ./figproc < corrupted/error$i > /dev/null
+done
+
+echo ''
+echo '# CONVERT #'
+echo ''
+for i in {1..17}
+do
+    echo $i' >'
+    ./convert < corrupted/error$i > /dev/null
+done
+echo ''
+
+rm -f figproc
+rm -f convert

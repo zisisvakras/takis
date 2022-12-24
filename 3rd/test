@@ -1,0 +1,29 @@
+#!/bin/bash
+make all > /dev/null
+
+for i in {1..8}
+do
+    echo ""
+    echo ">>Test dp"$i
+    echo ""
+    cat tests/test$i
+    time ./liftdp < tests/test$i
+done
+
+# foreach i (1 2 3 4 5 6 7 8)
+#     echo ""
+#     echo ">>Test mem"$i
+#     echo ""
+#     cat tests/test$i
+#     time ./liftmem < tests/test$i
+# end
+
+# foreach i (1 2 3 4 5 6 7 8)
+#     echo ""
+#     echo ">>Test rec"$i
+#     echo ""
+#     cat tests/test$i
+#     time ./liftrec < tests/test$i
+# end
+
+make clean > /dev/null
