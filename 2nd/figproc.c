@@ -18,7 +18,7 @@ int read(void) {
 /* A modified version of read() that returns the next integer(ascii) */
 int readint(void) {
     int ch = read(); /* Get first digit, ignoring blanks */
-    long long integer = 0; /* Set the type as long long to catch overflows */
+    int integer = 0;
     while (!isspace(ch)) { /* Stop after you find blank */
         if (!('0' <= ch && ch <= '9')) { /* If character is not a digit throw error */
             return ERROR;
