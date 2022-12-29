@@ -3,3 +3,8 @@ out
 test.c
 3rd/output
 3rd/bash
+*.o
+liftbf
+liftdp
+liftmem
+liftrec
