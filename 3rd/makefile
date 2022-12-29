@@ -30,6 +30,5 @@ liftdp: lift.o liftdp.o
 liftdp.o: src/liftdp.c
 	$(CC) $(CFLAGS) -c src/liftdp.c
 
-
 clean:
 	rm -f *.o liftrec liftmem liftbf liftdp
