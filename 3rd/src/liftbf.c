@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #define INFINITY -1
 
-//FIXME: ORDER OF ARGS, CHANGE VARIABLE NAMES, REMOVE GLOBALS, COMMENTS
-int mincost;
+//FIXME: ORDER OF ARGS, CHANGE VARIABLE NAMES,  COMMENTS
 
 int cost(int* stops, int nst, int* dests, int nrid) {
     int sum = 0;
