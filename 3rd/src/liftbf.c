@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #define INFINITY -1
 
-//FIXME: ORDER OF ARGS
+//FIXME: ORDER OF ARGS, CHANGE VARIABLE NAMES, REMOVE GLOBALS, COMMENTS
 int mincost;
-int* stops_best;
 
 int cost(int* stops, int nst, int* dests, int nrid) {
     int sum = 0;
@@ -21,29 +20,28 @@ int cost(int* stops, int nst, int* dests, int nrid) {
     return sum;
 }
 
-void permutation(int index, int* stops, int nst, int start, int nfl, int* dests, int nrid) {
-    for (int j = start; j <= (nfl + index - nst + 1); ++j) {
-        stops[index] = j;
-        if (index + 1 < nst) {
-            permutation(index + 1, stops, nst, j + 1, nfl, dests, nrid);
-        }
-        else {
-            int temp = cost(stops, nst, dests, nrid);
-            if (temp < mincost) {
-                mincost = temp;
-                for (int h = 0 ; h < nst ; h++) {
-                    stops_best[h] = stops[h];
-                }
+int generate_next(int* stops, int nst, int nfl) {
+    if(stops[nst - 1] != nfl) {
+        stops[nst - 1]++;
+        return 1;
+    }
+    for (int i = nst - 2; i >= 0 ; i--) {
+        if(stops[i] != nfl + i - nst + 1) {
+            stops[i]++;
+            for (int j = i + 1 ; j < nst ; j++) {
+                stops[j] = stops[j - 1] + 1;
             }
+            return 1;
         }
     }
+    return 0;
 }
 
 int solve(int nrid, int nst, int* dests) {
 
     /* Arrays that will hold possible elevator sequences */
     int* stops = malloc(nst * sizeof(int)); /* This holds floor stops */
-    stops_best = malloc(nst * sizeof(int)); /* This holds floor stops of best solution */
+    int* stops_best = malloc(nst * sizeof(int)); /* This holds floor stops of best solution */
     for (int i = 0 ; i < nst ; i++) { /* Initialize both stops and stops_best to zero */
         stops[i] = 0;
         stops_best[i] = 0;
@@ -58,11 +56,17 @@ int solve(int nrid, int nst, int* dests) {
     }
 
     /* Initialize mincost with cost of the elevator going nowhere */
-    mincost = cost(stops, nst, dests, nrid);
+    int mincost = cost(stops, nst, dests, nrid);
 
     /* Begin calculating the permutations */
-    for (int i = nst - 1; i >= 0 ; i--) {
-        permutation(i, stops, nst, 1, nfl, dests, nrid);
+    while(generate_next(stops, nst, nfl)) {
+        int temp = cost(stops, nst, dests, nrid);
+        if (temp < mincost) {
+            mincost = temp;
+            for (int h = 0 ; h < nst ; h++) {
+                stops_best[h] = stops[h];
+            }
+        }
     }
     
     /* Messages required by solution */
