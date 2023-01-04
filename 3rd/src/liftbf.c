@@ -5,26 +5,57 @@
 //FIXME: ORDER OF ARGS, CHANGE VARIABLE NAMES,  COMMENTS
 
 int cost(int* stops, int nst, int* dests, int nrid) {
-    int sum = 0;
+    int sum = 0, index = 0;
+    while (stops[index] == 0) ++index;
     for (int i = 0 ; i < nrid ; i++) {
-        int dest = dests[i];
-        int somth = dest;
-        for (int j = 0 ; j < nst ; j++) {
-            int tempcost = dest <= stops[j] ? stops[j] - dest : dest - stops[j];
-            if(tempcost < somth)
-                somth = tempcost;
+        if (stops[nst - 1] <= dests[i]) {
+            sum += dests[i] - stops[nst - 1];
+            continue;
         }
-        sum += somth;
+        int min = dests[i];
+        if (dests[i] <= stops[0]) {
+            if(stops[0] - dests[i] < min) min = stops[0] - dests[i];
+            sum += min;
+            continue;
+        }
+        for (int j = index ; j < nst ; j++) {
+            if (dests[i] <= stops[j]) {
+                int temp = stops[j] - dests[i] < dests[i] - stops[j - 1] ? stops[j] - dests[i] : dests[i] - stops[j - 1];
+                if(temp < min) min = temp;
+                break;
+            }
+        }
+        sum += min;
     }
     return sum;
 }
 
+// int cost(int* stops, int nst, int* dests, int nrid) {
+//     int sum = 0, index = 0;
+//     while (stops[index] == 0) index++;
+//     for (int i = 0 ; i < nrid ; i++) {
+//         int min = dests[i];
+//         for (int j = index ; j < nst ; j++) {
+//             int temp = dests[i] <= stops[j] ? stops[j] - dests[i] : dests[i] - stops[j];
+//             if(temp < min)
+//                 min = temp;
+//             if (stops[j] >= dests[i]) break;
+//         }
+//         sum += min;
+//     }
+//     return sum;
+// }
+        // if (dests[i] <= stops[0] && stops[0] < 2 * dests[i]) {
+        //     sum += stops[0] - dests[i];
+        //     continue;
+        // }
+        // if (stops[nst - 1] <= dests[i]) {
+        //     sum += dests[i] - stops[nst - 1];
+        //     continue;
+        // }
+
 int generate_next(int* stops, int nst, int nfl) {
-    if(stops[nst - 1] != nfl) {
-        stops[nst - 1]++;
-        return 1;
-    }
-    for (int i = nst - 2; i >= 0 ; i--) {
+    for (int i = nst - 1; i >= 0 ; i--) {
         if(stops[i] != nfl + i - nst + 1) {
             stops[i]++;
             for (int j = i + 1 ; j < nst ; j++) {
@@ -75,7 +106,7 @@ int solve(int nrid, int nst, int* dests) {
     else {
         printf("Lift stops are:");
         for (int i = 0 ; i < nst - 1 ; i++) {
-            if(stops_best[i]) /* Its possible that we don't move all nst floors */
+            if(stops_best[i]) /* Its possible that we don't stop all nst floors */
                 printf(" %d", stops_best[i]);
         }
         printf(" %d\n", stops_best[nst - 1]);

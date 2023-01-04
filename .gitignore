@@ -10,3 +10,9 @@ liftmem
 liftrec
 a.out
 combtest.c
+.misc/jochallenge.c
+2nd/figproc
+.gitignore
+2nd/NIbin.pbm
+2nd/NIbin.pgm
+2nd/NIbin.ppm
