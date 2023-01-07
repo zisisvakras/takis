@@ -7,25 +7,20 @@
 int cost(int* stops, int nst, int* dests, int nrid) {
     int sum = 0, index = 0;
     while (stops[index] == 0) ++index;
-    for (int i = 0 ; i < nrid ; i++) {
-        if (stops[nst - 1] <= dests[i]) {
-            sum += dests[i] - stops[nst - 1];
+    for (int i = 0 ; i < nrid ; ++i) {
+        int temp = dests[i] - stops[nst - 1];
+        int prev = dests[i];
+        if (temp >= 0) {
+            sum += temp;
             continue;
         }
-        int min = dests[i];
-        if (dests[i] <= stops[0]) {
-            if(stops[0] - dests[i] < min) min = stops[0] - dests[i];
-            sum += min;
-            continue;
-        }
-        for (int j = index ; j < nst ; j++) {
-            if (dests[i] <= stops[j]) {
-                int temp = stops[j] - dests[i] < dests[i] - stops[j - 1] ? stops[j] - dests[i] : dests[i] - stops[j - 1];
-                if(temp < min) min = temp;
+        for (int j = index ; j < nst ; ++j) {
+            if ((temp = stops[j] - dests[i]) >= 0) {
+                sum += temp < prev ? temp : prev;
                 break;
             }
+            prev = dests[i] - stops[j];
         }
-        sum += min;
     }
     return sum;
 }
