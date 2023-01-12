@@ -9,15 +9,15 @@ int main(void) {
 
     /* Getting program input */
     if(scanf("%d", &nrid) != 1) {
-        fprintf(stderr, "Couldn't read input");
+        fprintf(stderr, "Couldn\'t read input");
         return -1;
     }
     if(scanf("%d", &nst) != 1) {
-        fprintf(stderr, "Couldn't read input");
+        fprintf(stderr, "Couldn\'t read input");
         return -1;
     }
     if (nst < 0 || nst < 0) {
-        fprintf(stderr, "Couldn't read input");
+        fprintf(stderr, "Couldn\'t read input");
         return -1;
     }
 
@@ -25,17 +25,17 @@ int main(void) {
     dests = malloc(nrid * sizeof(int));
 
     if (dests == NULL) {
-        fprintf(stderr, "Couldn't allocate memory");
+        fprintf(stderr, "Couldn\'t allocate memory");
         return -1;
     }
 
     for (int i = 0 ; i < nrid ; i++) {
         if(scanf("%d", dests + i) != 1) {
-            fprintf(stderr, "Couldn't read input");
+            fprintf(stderr, "Couldn\'t read input");
             return -1;
         }
         if (dests[i] < 0) {
-            fprintf(stderr, "Couldn't read input");
+            fprintf(stderr, "Couldn\'t read input");
             return -1;
         }
     }
