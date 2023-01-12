@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define INFINITY -1
+#include "lift.h"
 
 //FIXME: ORDER OF ARGS, CHANGE VARIABLE NAMES,  COMMENTS
 

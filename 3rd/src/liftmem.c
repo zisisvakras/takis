@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define INFINITY -1
+#include "lift.h"
 
 /* Function described by the assignment */
 int fw(int start, int finish, int nrid, int* dests) {

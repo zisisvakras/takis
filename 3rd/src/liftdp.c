@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define INFINITY -1 /* Any negative number would have worked for INFINITY */
-
-//TODO REVIEW COMMENTS
+#include "lift.h"
 
 /* Function described by the assignment */
 int fw(int start, int finish, int nrid, int* dests) {
