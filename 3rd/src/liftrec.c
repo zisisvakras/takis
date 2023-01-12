@@ -3,9 +3,10 @@
 
 /* Function described by the assignment */
 int fw(int start, int finish, int nrid, int* dests) {
-    int sum = 0; /* Initialize sum */
+    int sum = 0;
     if (finish == INFINITY) { 
-        /* If the right value is infinite we don't need to calculate 
+        /* 
+        *  If the second arg is infinity we don't need to calculate 
         *  infinity - dest because it will always be the larger one 
         */
         for (int i = 0 ; i < nrid ; i++) {
@@ -31,18 +32,18 @@ int fw(int start, int finish, int nrid, int* dests) {
 
 /* Function described by the assignment */
 int M(int i, int j, int nrid, int* dests) {
-     /* In case i is 0 we need to execute the first formula described in the solution*/
+    /* When i = 0 we need to calculate fw(0, INF) */
     if (i == 0) {
         return fw(0, INFINITY, nrid, dests);
     }
-    int min = INFINITY; /* Initializing the current min value */
+    int min = INFINITY;
     for (int k = 0 ; k <= j ; k++) { /* Using the sum described in solution */
         int sum = 0;
         sum += M(i - 1, k, nrid, dests);
         sum -= fw(k, INFINITY, nrid, dests);
         sum += fw(k, j, nrid, dests);
         sum += fw(j, INFINITY, nrid, dests);
-        if (sum < min || min == INFINITY) { /* At the start we want to catch the infinite value */
+        if (sum < min || min == INFINITY) { /* At the start we want to catch the infinity value */
             min = sum;
         }
     }
@@ -51,9 +52,8 @@ int M(int i, int j, int nrid, int* dests) {
 
 
 int solve(int nrid, int nst, int* dests) {
-    int nfl = 0; /* Declaring nfl variable*/
     int min = INFINITY; /* This holds the result of MinCost */
-    int floor = 0; /* This holds the last stop */
+    int nfl = 0, last_floor = 0;
 
     /* Looping through all destinations to find the highest floor */
     for (int i = 0 ; i < nrid ; i++) { 
@@ -65,18 +65,18 @@ int solve(int nrid, int nst, int* dests) {
     /* Executing the MinCost as described by the solution */
     for (int j = 0 ; j <= nfl ; j++) {
         int temp = M(nst, j, nrid, dests);
-        if (temp < min || min == INFINITY) { /* At the start we want to catch the infinite value */
+        if (temp < min || min == INFINITY) { /* At the start we want to catch the infinity value */
             min = temp;
-            floor = j;
+            last_floor = j;
         }
     }
 
     /* Messages required by solution */
-    if (floor == 0) {
+    if (last_floor == 0) {
         printf("No lift stops\n");
     }
     else {
-        printf("Last stop at floor %d\n", floor);
+        printf("Last stop at floor %d\n", last_floor);
     }
     return min;
 }
