@@ -7,7 +7,7 @@ do
     echo ">>Test rec"$i
     echo ""
     cat tests/test$i
-    time ./liftrec < tests/test$i
+    /usr/bin/time -f "%E %Uu %Ss %P" ./target/liftrec < tests/test$i
 done
 
 # foreach i (1 2 3 4 5 6 7 8)

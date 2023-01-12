@@ -1,34 +1,26 @@
 CC = gcc
 CFLAGS = -g3 -Wall -Werror -Wextra
 
-all: liftrec liftmem liftbf liftdp
+OBJ_DIR := ./target/objs
+BUILD_DIR := ./target
 
-lift.o: src/lift.c src/lift.h
-	$(CC) $(CFLAGS) -c src/lift.c
+all: $(BUILD_DIR)/liftrec $(BUILD_DIR)/liftmem $(BUILD_DIR)/liftbf $(BUILD_DIR)/liftdp
 
-liftrec: lift.o liftrec.o
-	$(CC) $(CFLAGS) lift.o liftrec.o -o liftrec
+$(OBJ_DIR)/%.o: src/%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-liftrec.o: src/liftrec.c
-	$(CC) $(CFLAGS) -c src/liftrec.c
+$(BUILD_DIR)/liftrec: $(OBJ_DIR)/lift.o $(OBJ_DIR)/liftrec.o
+	$(CC) $(CFLAGS) $(OBJ_DIR)/lift.o $(OBJ_DIR)/liftrec.o -o $(BUILD_DIR)/liftrec
 
-liftmem: lift.o liftmem.o
-	$(CC) $(CFLAGS) lift.o liftmem.o -o liftmem
+$(BUILD_DIR)/liftmem: $(OBJ_DIR)/lift.o $(OBJ_DIR)/liftmem.o
+	$(CC) $(CFLAGS) $(OBJ_DIR)/lift.o $(OBJ_DIR)/liftmem.o -o $(BUILD_DIR)/liftmem
 
-liftmem.o: src/liftmem.c
-	$(CC) $(CFLAGS) -c src/liftmem.c
+$(BUILD_DIR)/liftbf: $(OBJ_DIR)/lift.o $(OBJ_DIR)/liftbf.o
+	$(CC) $(CFLAGS) $(OBJ_DIR)/lift.o $(OBJ_DIR)/liftbf.o -o $(BUILD_DIR)/liftbf
 
-liftbf: lift.o liftbf.o
-	$(CC) $(CFLAGS) lift.o liftbf.o -o liftbf
-
-liftbf.o: src/liftbf.c
-	$(CC) $(CFLAGS) -c src/liftbf.c
-
-liftdp: lift.o liftdp.o
-	$(CC) $(CFLAGS) lift.o liftdp.o -o liftdp
-
-liftdp.o: src/liftdp.c
-	$(CC) $(CFLAGS) -c src/liftdp.c
+$(BUILD_DIR)/liftdp: $(OBJ_DIR)/lift.o $(OBJ_DIR)/liftdp.o
+	$(CC) $(CFLAGS) $(OBJ_DIR)/lift.o $(OBJ_DIR)/liftdp.o -o $(BUILD_DIR)/liftdp
 
 .PHONY: clean
 clean:

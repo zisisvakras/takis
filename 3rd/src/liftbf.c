@@ -8,8 +8,7 @@ int cost(int* stops, int nst, int* dests, int nrid) {
     int sum = 0, index = 0;
     while (stops[index] == 0) ++index;
     for (int i = 0 ; i < nrid ; ++i) {
-        int temp = dests[i] - stops[nst - 1];
-        int prev = dests[i];
+        int prev = dests[i], temp = dests[i] - stops[nst - 1];
         if (temp >= 0) {
             sum += temp;
             continue;
@@ -19,35 +18,11 @@ int cost(int* stops, int nst, int* dests, int nrid) {
                 sum += temp < prev ? temp : prev;
                 break;
             }
-            prev = dests[i] - stops[j];
+            prev = -temp;
         }
     }
     return sum;
 }
-
-// int cost(int* stops, int nst, int* dests, int nrid) {
-//     int sum = 0, index = 0;
-//     while (stops[index] == 0) index++;
-//     for (int i = 0 ; i < nrid ; i++) {
-//         int min = dests[i];
-//         for (int j = index ; j < nst ; j++) {
-//             int temp = dests[i] <= stops[j] ? stops[j] - dests[i] : dests[i] - stops[j];
-//             if(temp < min)
-//                 min = temp;
-//             if (stops[j] >= dests[i]) break;
-//         }
-//         sum += min;
-//     }
-//     return sum;
-// }
-        // if (dests[i] <= stops[0] && stops[0] < 2 * dests[i]) {
-        //     sum += stops[0] - dests[i];
-        //     continue;
-        // }
-        // if (stops[nst - 1] <= dests[i]) {
-        //     sum += dests[i] - stops[nst - 1];
-        //     continue;
-        // }
 
 int generate_next(int* stops, int nst, int nfl) {
     for (int i = nst - 1; i >= 0 ; i--) {
