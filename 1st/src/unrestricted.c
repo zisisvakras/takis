@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#ifndef MAXEXP
 #define MAXEXP 9
+#endif
 #define THREAD_COUNT 4
 #define PARTITIONS_MOBIUS 12000
 #define PARTITIONS_PERFECT 1200

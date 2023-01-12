@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -g3 -Wall -Werror -Wextra
 
 all: liftrec liftmem liftbf liftdp
 
@@ -30,5 +30,6 @@ liftdp: lift.o liftdp.o
 liftdp.o: src/liftdp.c
 	$(CC) $(CFLAGS) -c src/liftdp.c
 
+.PHONY: clean
 clean:
-	rm -f *.o liftrec liftmem liftbf liftdp
+	rm -r target
