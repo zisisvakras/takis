@@ -15,9 +15,9 @@
 */
 int cost(int* stops, int nst, int* dests, int nrid) {
     int sum = 0, index = 0;
-    while (stops[index] == 0) ++index; /* Skip the zeroes at start */
+    while (index < nst && stops[index] == 0) ++index; /* Skip the zeroes at start */
     for (int i = 0 ; i < nrid ; ++i) {
-        int temp = dests[i] - stops[nst - 1];
+        int temp = nst > 0 ? dests[i] - stops[nst - 1] : INFINITY;
         int prev = dests[i]; /* Initialize the previous floor with "ground cost" */
         if (temp >= 0) { /* Is the passenger's floor higher than all stops? */
             sum += temp;
@@ -93,7 +93,7 @@ int solve(int nrid, int nst, int* dests) {
 
     /* Initialize mincost with cost of the elevator going nowhere */
     int mincost = cost(stops, nst, dests, nrid);
-
+    
     /* Begin calculating the permutations (starts from [0,0,0.....] because of calloc) */
     while(generate_next(stops, nst, nfl)) {
         int temp = cost(stops, nst, dests, nrid);
@@ -106,7 +106,7 @@ int solve(int nrid, int nst, int* dests) {
     }
     
     /* Messages required by solution */
-    if (stops_best[nst - 1] == 0) { /* If last floor on stops_best is 0 it means the elevator went nowhere */
+    if (nst == 0 || stops_best[nst - 1] == 0) { /* If last floor on stops_best is 0 it means the elevator went nowhere */
         printf("No lift stops\n");
     }
     else {

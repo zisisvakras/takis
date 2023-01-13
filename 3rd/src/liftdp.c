@@ -48,9 +48,9 @@ int solve(int nrid, int nst, int* dests) {
     *  Also initializing a 2d array that will store the k of M(i - 1, k) that has the lowest cost when
     *  calculating M(i, j), for more info review the solution to the problem provided by the assignment
     */
-    int** mvalues = malloc((nst + 1) * sizeof(int*));
-    int** kvalues = malloc((nst + 1) * sizeof(int*));
-    int* best_stops = malloc((nst + 1) * sizeof(int)); /* This holds the best stop sequence */
+    int** mvalues = calloc((nst + 1), sizeof(int*));
+    int** kvalues = calloc((nst + 1), sizeof(int*));
+    int* best_stops = calloc((nst + 1), sizeof(int)); /* This holds the best stop sequence */
     if (mvalues == NULL || kvalues == NULL || best_stops == NULL) {
         fprintf(stderr, "Couldn\'t allocate memory");
         return -1;
