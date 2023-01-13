@@ -1,10 +1,9 @@
 #!/bin/bash
 
-mkdir myoutput > /dev/null
-mkdir takimage > /dev/null
+mkdir -p myoutput > /dev/null
+mkdir -p takimage > /dev/null
 
-make figproc > /dev/null
-make convert > /dev/null
+make all > /dev/null
 
 curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/NIbin.ppm' > takimage/NIbin.ppm
 curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/NIbin.pgm' > takimage/NIbin.pgm 
@@ -21,23 +20,23 @@ curl --silent 'https://cgi.di.uoa.gr/~ip/hwfiles/figproc/colorsasc.pbm' > takima
 
 echo 'colorsasc fig >'
 echo ''
-./figproc < takimage/colorsasc.ppm > myoutput/colorsasc.pgm
-./figproc < myoutput/colorsasc.pgm > myoutput/colorsasc.pbm
+./target/figproc < takimage/colorsasc.ppm > myoutput/colorsasc.pgm
+./target/figproc < myoutput/colorsasc.pgm > myoutput/colorsasc.pbm
 
 echo 'MVbin fig >'
 echo ''
-./figproc < takimage/MVbin.ppm > myoutput/MVbin.pgm
-./figproc < myoutput/MVbin.pgm > myoutput/MVbin.pbm
+./target/figproc < takimage/MVbin.ppm > myoutput/MVbin.pgm
+./target/figproc < myoutput/MVbin.pgm > myoutput/MVbin.pbm
 
 echo 'NIbin fig >'
 echo ''
-./figproc < takimage/NIbin.ppm > myoutput/NIbin.pgm
-./figproc < myoutput/NIbin.pgm > myoutput/NIbin.pbm
+./target/figproc < takimage/NIbin.ppm > myoutput/NIbin.pgm
+./target/figproc < myoutput/NIbin.pgm > myoutput/NIbin.pbm
 
 echo 'ISbin fig >'
 echo ''
-./figproc < takimage/ISbin.ppm > myoutput/ISbin.pgm
-./figproc < myoutput/ISbin.pgm > myoutput/ISbin.pbm
+./target/figproc < takimage/ISbin.ppm > myoutput/ISbin.pgm
+./target/figproc < myoutput/ISbin.pgm > myoutput/ISbin.pbm
 
 cmp myoutput/colorsasc.pgm takimage/colorsasc.pgm
 cmp myoutput/colorsasc.pbm takimage/colorsasc.pbm
@@ -53,39 +52,39 @@ cmp myoutput/ISbin.pbm takimage/ISbin.pbm
 
 echo 'colorsasc bonus >'
 echo ''
-./convert < takimage/colorsasc.ppm > myoutput/colorsasc6.ppm
-./convert < myoutput/colorsasc.pgm > myoutput/colorsasc5.pgm
-./convert < myoutput/colorsasc.pbm > myoutput/colorsasc4.pbm
-./convert < myoutput/colorsasc6.ppm > myoutput/colorsasc3.ppm
-./convert < myoutput/colorsasc5.pgm > myoutput/colorsasc2.pgm
-./convert < myoutput/colorsasc4.pbm > myoutput/colorsasc1.pbm
+./target/convert < takimage/colorsasc.ppm > myoutput/colorsasc6.ppm
+./target/convert < myoutput/colorsasc.pgm > myoutput/colorsasc5.pgm
+./target/convert < myoutput/colorsasc.pbm > myoutput/colorsasc4.pbm
+./target/convert < myoutput/colorsasc6.ppm > myoutput/colorsasc3.ppm
+./target/convert < myoutput/colorsasc5.pgm > myoutput/colorsasc2.pgm
+./target/convert < myoutput/colorsasc4.pbm > myoutput/colorsasc1.pbm
 
 echo 'MVbin bonus >'
 echo ''
-./convert < takimage/MVbin.ppm > myoutput/MVbin3.ppm
-./convert < myoutput/MVbin.pgm > myoutput/MVbin2.pgm
-./convert < myoutput/MVbin.pbm > myoutput/MVbin1.pbm
-./convert < myoutput/MVbin3.ppm > myoutput/MVbin6.ppm
-./convert < myoutput/MVbin2.pgm > myoutput/MVbin5.pgm
-./convert < myoutput/MVbin1.pbm > myoutput/MVbin4.pbm
+./target/convert < takimage/MVbin.ppm > myoutput/MVbin3.ppm
+./target/convert < myoutput/MVbin.pgm > myoutput/MVbin2.pgm
+./target/convert < myoutput/MVbin.pbm > myoutput/MVbin1.pbm
+./target/convert < myoutput/MVbin3.ppm > myoutput/MVbin6.ppm
+./target/convert < myoutput/MVbin2.pgm > myoutput/MVbin5.pgm
+./target/convert < myoutput/MVbin1.pbm > myoutput/MVbin4.pbm
 
 echo 'NIbin bonus >'
 echo ''
-./convert < takimage/NIbin.ppm > myoutput/NIbin3.ppm
-./convert < myoutput/NIbin.pgm > myoutput/NIbin2.pgm
-./convert < myoutput/NIbin.pbm > myoutput/NIbin1.pbm
-./convert < myoutput/NIbin3.ppm > myoutput/NIbin6.ppm
-./convert < myoutput/NIbin2.pgm > myoutput/NIbin5.pgm
-./convert < myoutput/NIbin1.pbm > myoutput/NIbin4.pbm
+./target/convert < takimage/NIbin.ppm > myoutput/NIbin3.ppm
+./target/convert < myoutput/NIbin.pgm > myoutput/NIbin2.pgm
+./target/convert < myoutput/NIbin.pbm > myoutput/NIbin1.pbm
+./target/convert < myoutput/NIbin3.ppm > myoutput/NIbin6.ppm
+./target/convert < myoutput/NIbin2.pgm > myoutput/NIbin5.pgm
+./target/convert < myoutput/NIbin1.pbm > myoutput/NIbin4.pbm
 
 echo 'ISbin bonus >'
 echo ''
-./convert < takimage/ISbin.ppm > myoutput/ISbin3.ppm
-./convert < myoutput/ISbin.pgm > myoutput/ISbin2.pgm
-./convert < myoutput/ISbin.pbm > myoutput/ISbin1.pbm
-./convert < myoutput/ISbin3.ppm > myoutput/ISbin6.ppm
-./convert < myoutput/ISbin2.pgm > myoutput/ISbin5.pgm
-./convert < myoutput/ISbin1.pbm > myoutput/ISbin4.pbm
+./target/convert < takimage/ISbin.ppm > myoutput/ISbin3.ppm
+./target/convert < myoutput/ISbin.pgm > myoutput/ISbin2.pgm
+./target/convert < myoutput/ISbin.pbm > myoutput/ISbin1.pbm
+./target/convert < myoutput/ISbin3.ppm > myoutput/ISbin6.ppm
+./target/convert < myoutput/ISbin2.pgm > myoutput/ISbin5.pgm
+./target/convert < myoutput/ISbin1.pbm > myoutput/ISbin4.pbm
 
 cmp myoutput/colorsasc3.ppm takimage/colorsasc.ppm
 cmp myoutput/colorsasc2.pgm takimage/colorsasc.pgm
@@ -113,7 +112,7 @@ echo ''
 for i in {1..17}
 do
     echo $i' >'
-    ./figproc < corrupted/error$i > /dev/null
+    ./target/figproc < corrupted/error$i > /dev/null
 done
 
 echo ''
@@ -122,9 +121,8 @@ echo ''
 for i in {1..17}
 do
     echo $i' >'
-    ./convert < corrupted/error$i > /dev/null
+    ./target/convert < corrupted/error$i > /dev/null
 done
 echo ''
 
-rm -f figproc
-rm -f convert
+make clean > /dev/null
