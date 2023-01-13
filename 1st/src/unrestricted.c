@@ -199,4 +199,5 @@ int main(void) {
     printf("\nFound %d deficient numbers\n", deficient_counter);
     printf("Found %d abundant numbers\n", abundant_counter);
     pthread_mutex_destroy(&mutex);
+    return 0;
 }

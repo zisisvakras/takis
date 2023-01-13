@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define MAXEXP 8
 
-int main() {
+int main(void) {
 
     int mertens_bound = 19;
     int mertens_zp = 0;
@@ -901,4 +901,5 @@ int main() {
 
     printf("\nFound %d deficient numbers\n", deficient_counter);
     printf("Found %d abundant numbers\n", abundant_counter);
+    return 0;
 }

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define MAXEXP 8
 
-int main() {
+int main(void) {
     /*
     *   Start of Mertens Section
     */
@@ -197,4 +197,5 @@ int main() {
     /*
     *   End of Perfect, Abundant and Deficient numbers Section
     */
+    return 0;
 }
