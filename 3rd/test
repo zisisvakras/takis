@@ -1,29 +1,41 @@
-#!/bin/bash
+#!/bin/csh
+
 make all > /dev/null
 
-for i in {1..8}
-do
-    echo ""
-    echo ">>Test rec"$i
-    echo ""
+echo ""
+echo ">>Test dp"
+echo ""
+foreach i (`seq 1 8`)
     cat tests/test$i
-    /usr/bin/time -f "%E %Uu %Ss %P" ./target/liftrec < tests/test$i
-done
+    time ./target/liftdp < tests/test$i
+    echo ""
+end
 
-# foreach i (1 2 3 4 5 6 7 8)
-#     echo ""
-#     echo ">>Test mem"$i
-#     echo ""
-#     cat tests/test$i
-#     time ./liftmem < tests/test$i
-# end
+echo ""
+echo ">>Test mem"
+echo ""
+foreach i (`seq 1 8`)
+    cat tests/test$i
+    time ./target/liftmem < tests/test$i
+    echo ""
+end
 
-# foreach i (1 2 3 4 5 6 7 8)
-#     echo ""
-#     echo ">>Test rec"$i
-#     echo ""
-#     cat tests/test$i
-#     time ./liftrec < tests/test$i
-# end
+echo ""
+echo ">>Test bf"
+echo ""
+foreach i (`seq 1 8`)
+    cat tests/test$i
+    time ./target/liftbf < tests/test$i
+    echo ""
+end
+
+echo ""
+echo ">>Test rec"
+echo ""
+foreach i (`seq 1 8`)
+    cat tests/test$i
+    time ./target/liftrec < tests/test$i
+    echo ""
+end
 
 make clean > /dev/null
