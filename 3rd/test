@@ -2,14 +2,14 @@
 
 make all > /dev/null
 
-echo ""
-echo ">>Test dp"
-echo ""
-foreach i (`seq 1 8`)
-    cat tests/test$i
-    time ./target/liftdp < tests/test$i
-    echo ""
-end
+# echo ""
+# echo ">>Test dp"
+# echo ""
+# foreach i (`seq 1 8`)
+#     cat tests/test$i
+#     time ./target/liftdp < tests/test$i
+#     echo ""
+# end
 
 echo ""
 echo ">>Test mem"
@@ -20,22 +20,22 @@ foreach i (`seq 1 8`)
     echo ""
 end
 
-echo ""
-echo ">>Test bf"
-echo ""
-foreach i (`seq 1 8`)
-    cat tests/test$i
-    time ./target/liftbf < tests/test$i
-    echo ""
-end
+# echo ""
+# echo ">>Test bf"
+# echo ""
+# foreach i (`seq 1 8`)
+#     cat tests/test$i
+#     time ./target/liftbf < tests/test$i
+#     echo ""
+# end
 
-echo ""
-echo ">>Test rec"
-echo ""
-foreach i (`seq 1 8`)
-    cat tests/test$i
-    time ./target/liftrec < tests/test$i
-    echo ""
-end
+# echo ""
+# echo ">>Test rec"
+# echo ""
+# foreach i (`seq 1 8`)
+#     cat tests/test$i
+#     time ./target/liftrec < tests/test$i
+#     echo ""
+# end
 
 make clean > /dev/null

@@ -40,13 +40,15 @@ int M(int i, int j, int nrid, int* dests, int** mvalues) {
         }
         return mvalues[0][0]; /* All M(0, j) is the same for all j */
     }
+
+    if (mvalues[i][j] != INFINITY) { /* See if M(i,j) was calculated before */
+        return mvalues[i][j];
+    }
+
     int min = INFINITY;
-    for (int k = 0 ; k <= j ; k++) { /* Using the sum described in solution */
+    for (int k = 0 ; k <= j ; k++) { /* Using the sum described in solution */   
         int sum = 0;
-        if (mvalues[i - 1][k] == INFINITY) { /* Catch the initial value */
-            mvalues[i - 1][k] = M(i - 1, k, nrid, dests, mvalues);
-        }
-        sum += mvalues[i - 1][k];
+        sum += M(i - 1, k, nrid, dests, mvalues);
         sum -= fw(k, INFINITY, nrid, dests);
         sum += fw(k, j, nrid, dests);
         sum += fw(j, INFINITY, nrid, dests);
@@ -54,6 +56,8 @@ int M(int i, int j, int nrid, int* dests, int** mvalues) {
             min = sum;
         }
     }
+    
+    mvalues[i][j] = min;
     return min;
 }
 
