@@ -13,7 +13,7 @@
 *  5. If the passenger's floor is higher than all stops provided then add
 *  [passenger's floor - highest stop floor] to the total cost.
 */
-int cost(int* stops, int nst, int* dests, int nrid) {
+int cost(int* stops, int nst, int* dests, int nrid, int min) {
     int sum = 0, index = 0;
     while (index < nst && stops[index] == 0) ++index; /* Skip the zeroes at start */
     for (int i = 0 ; i < nrid ; ++i) {
@@ -30,6 +30,7 @@ int cost(int* stops, int nst, int* dests, int nrid) {
             */
             if ((temp = stops[j] - dests[i]) >= 0) { 
                 sum += temp < prev ? temp : prev; /* Add the cost to which ever desision is best */
+                if (sum >= min && min == INFINITY) return sum;
                 break;
             }
             prev = -temp;
@@ -92,11 +93,11 @@ int solve(int nrid, int nst, int* dests) {
     }
 
     /* Initialize mincost with cost of the elevator going nowhere */
-    int mincost = cost(stops, nst, dests, nrid);
+    int mincost = cost(stops, nst, dests, nrid, INFINITY);
     
     /* Begin calculating the permutations (starts from [0,0,0.....] because of calloc) */
     while(generate_next(stops, nst, nfl)) {
-        int temp = cost(stops, nst, dests, nrid);
+        int temp = cost(stops, nst, dests, nrid, mincost);
         if (temp < mincost) {
             mincost = temp;
             for (int h = 0 ; h < nst ; h++) { /* Keep the current best sequence */
