@@ -1,0 +1,9 @@
+5
+A123456 3000.00 Nikos Papadopoulos
+A543210 700.50 Christos Dokimopoulos
+A332211 5000.30 Ioannis Fragkos
+A934567 1.20 Giorgos Mpatiris
+A567494 9999.99 Kostas Leftakis
+A332211
+A934567
+Α999999
