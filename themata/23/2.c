@@ -10,7 +10,7 @@ int isOre(int num) {
             count += 2;
         }
     }
-    if (num % i == 0) {
+    if (i * i == num) {
         sum += i;
         count++;
     }
