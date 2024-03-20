@@ -11,7 +11,7 @@ int div_sum(int num) {
             sum += num / i ;
         }
     }
-    if (num % i == 0) sum += i;
+    if (i * i == num) sum += i;
     return sum;
 }
 
